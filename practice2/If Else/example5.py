@@ -1,0 +1,5 @@
+c = 7
+if c == 7:
+    print("c is equal to 7")
+else:
+    print("c is not equal to 7")
