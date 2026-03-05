@@ -11,7 +11,7 @@ total = sum(p)
 dt = re.search(r"Время:\s*(\d{2}\.\d{2}\.\d{4}\s\d{2}:\d{2}:\d{2})", t)
 dt = dt.group(1) if dt else ""
 
-pay = re.search(r"Банковская карта|Наличные", t)
+pay = re.search(r"Банковская карта", t)
 pay = pay.group(0) if pay else ""
 
 for i in range(len(p)): 
