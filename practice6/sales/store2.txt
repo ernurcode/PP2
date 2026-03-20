@@ -1,0 +1,3 @@
+Monitor,2
+Headphones,4
+Mouse,6
