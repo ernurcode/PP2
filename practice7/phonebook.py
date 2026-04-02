@@ -33,16 +33,25 @@ def insert_from_csv(file):
     conn.close()
 
 
-def insert_from_console():
-    name = input("Name: ")
-    phone = input("Phone: ")
 
+def insert_from_console():
     conn = connect()
     cur = conn.cursor()
 
-    cur.execute(
+    names = input("Names (with space): ").split()
+    phones = input("Phones (with space): ").split()
+
+    if len(names) != len(phones):
+        print("Error")
+        cur.close()
+        conn.close()
+        return
+
+    data = list(zip(names, phones))
+
+    cur.executemany(
         "INSERT INTO phonebook (name, phone) VALUES (%s, %s)",
-        (name, phone)
+        data
     )
 
     conn.commit()
@@ -127,7 +136,6 @@ def delete_by_phone(phone):
     conn.commit()
     cur.close()
     conn.close()
-
 
 
 def main():
