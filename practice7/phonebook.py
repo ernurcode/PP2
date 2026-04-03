@@ -38,8 +38,8 @@ def insert_from_console():
     conn = connect()
     cur = conn.cursor()
 
-    names = input("Names (with space): ").split()
-    phones = input("Phones (with space): ").split()
+    names = input("Names (with ,): ").split(",")
+    phones = input("Phones (with ,): ").split(",")
 
     if len(names) != len(phones):
         print("Error")
