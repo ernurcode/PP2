@@ -23,7 +23,7 @@ def call_search():
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM search_contacts(%s)", (pattern,))
-    print(cur.fetchall())
+    print(*cur.fetchall(), sep="\n")
 
     cur.close()
     conn.close()
@@ -37,7 +37,7 @@ def call_pagination():
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM get_contacts_paginated(%s, %s)", (lim, off))
-    print(cur.fetchall())
+    print(*cur.fetchall(), sep="\n")
 
     cur.close()
     conn.close()
@@ -57,16 +57,17 @@ def call_delete():
 
 
 def call_bulk():
-    names = input("Names: ").split()
-    phones = input("Phones: ").split()
+    names = [x.strip() for x in input("Names: ").split(",")]
+    phones = [x.strip() for x in input("Phones: ").split(",")]
+
+    if len(names) != len(phones):
+        print("Error")
+        return
 
     conn = connect()
     cur = conn.cursor()
 
-    cur.execute(
-        "CALL insert_many(%s, %s)",
-        (names, phones)
-    )
+    cur.execute("CALL insert_many(%s, %s)", (names, phones))
 
     conn.commit()
     cur.close()

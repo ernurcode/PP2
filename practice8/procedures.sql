@@ -4,23 +4,21 @@ BEGIN
     IF EXISTS (SELECT 1 FROM phonebook WHERE name = p_name) THEN
         UPDATE phonebook SET phone = p_phone WHERE name = p_name;
     ELSE
-        INSERT INTO phonebook(name, phone)
-        VALUES (p_name, p_phone);
+        INSERT INTO phonebook(name, phone) VALUES (p_name, p_phone);
     END IF;
 END;
 $$;
 
-CREATE OR REPLACE PROCEDURE insert_many(names TEXT[], phones TEXT[])
+CREATE OR REPLACE PROCEDURE insert_many(p_names TEXT[], p_phones TEXT[])
 LANGUAGE plpgsql AS $$
 DECLARE
     i INT;
 BEGIN
-    FOR i IN 1..array_length(names, 1) LOOP
-        IF phones[i] ~ '^[0-9]+$' THEN
-            INSERT INTO phonebook(name, phone)
-            VALUES (names[i], phones[i]);
+    FOR i IN 1..array_length(p_names, 1) LOOP
+        IF p_phones[i] ~ '^[0-9]+$' THEN
+            INSERT INTO phonebook(name, phone) VALUES (p_names[i], p_phones[i]);
         ELSE
-            RAISE NOTICE 'Invalid: % - %', names[i], phones[i];
+            RAISE NOTICE 'Invalid phone: % - %', p_names[i], p_phones[i];
         END IF;
     END LOOP;
 END;

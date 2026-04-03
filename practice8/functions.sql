@@ -2,19 +2,19 @@ CREATE OR REPLACE FUNCTION search_contacts(p TEXT)
 RETURNS TABLE(name VARCHAR, phone VARCHAR) AS $$
 BEGIN
     RETURN QUERY
-    SELECT name, phone
-    FROM phonebook
-    WHERE name ILIKE '%' || p || '%'
-       OR phone ILIKE '%' || p || '%';
+    SELECT pb.name, pb.phone
+    FROM phonebook pb
+    WHERE pb.name ILIKE '%' || p || '%'
+       OR pb.phone ILIKE '%' || p || '%';
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION get_contacts_paginated(lim INT, off INT)
-RETURNS TABLE(id INT, name VARCHAR, phone VARCHAR) AS $$
+CREATE OR REPLACE FUNCTION get_contacts_paginated(p_limit INT, p_offset INT)
+RETURNS TABLE(contact_id INT, contact_name VARCHAR, contact_phone VARCHAR) AS $$
 BEGIN
     RETURN QUERY
-    SELECT id, name, phone
-    FROM phonebook
-    LIMIT lim OFFSET off;
+    SELECT pb.id, pb.name, pb.phone
+    FROM phonebook pb
+    LIMIT p_limit OFFSET p_offset;
 END;
 $$ LANGUAGE plpgsql;
