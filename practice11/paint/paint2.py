@@ -1,14 +1,15 @@
 import pygame
 
-pygame.init()
+pygame.init()  # init pygame
 
 w, h = 800, 600
-screen = pygame.display.set_mode((w, h))
+screen = pygame.display.set_mode((w, h))  # window
 clock = pygame.time.Clock()
 
-canvas = pygame.Surface((w, h))
-canvas.fill((255, 255, 255))
+canvas = pygame.Surface((w, h))  # drawing layer
+canvas.fill((255, 255, 255))  # white background
 
+# colors
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
@@ -23,21 +24,19 @@ start_pos = (0, 0)
 running = True
 while running:
     screen.fill((200, 200, 200))
-    screen.blit(canvas, (0, 0))
+    screen.blit(canvas, (0, 0))  # show canvas
 
-    for event in pygame.event.get():
+    for event in pygame.event.get():  # events
         if event.type == pygame.QUIT:
             running = False
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             drawing = True
-            start_pos = event.pos
-
-            
+            start_pos = event.pos  # save start point
 
         if event.type == pygame.MOUSEBUTTONUP:
             drawing = False
-            end_pos = event.pos
+            end_pos = event.pos  # end point
 
             if tool == "rect":
                 x = min(start_pos[0], end_pos[0])
@@ -47,16 +46,17 @@ while running:
                 pygame.draw.rect(canvas, color, (x, y, w_, h_), 4)
 
             if tool == "square":
-               size = max(abs(end_pos[0] - start_pos[0]),
-               abs(end_pos[1] - start_pos[1]))
+                size = max(abs(end_pos[0] - start_pos[0]),
+                           abs(end_pos[1] - start_pos[1]))
 
-               x = start_pos[0]
-               y = start_pos[1]
-               if end_pos[0] < start_pos[0]:
-                   x = start_pos[0] - size
-               if end_pos[1] < start_pos[1]:
-                   y = start_pos[1] - size
-               pygame.draw.rect(canvas, color, (x, y, size, size), 4)
+                x, y = start_pos
+
+                if end_pos[0] < start_pos[0]:
+                    x = start_pos[0] - size
+                if end_pos[1] < start_pos[1]:
+                    y = start_pos[1] - size
+
+                pygame.draw.rect(canvas, color, (x, y, size, size), 4)
 
             if tool == "circle":
                 radius = int(((end_pos[0] - start_pos[0])**2 +
@@ -93,43 +93,31 @@ while running:
                 ], 4)
 
     if drawing and tool == "draw":
-        pos = pygame.mouse.get_pos()
-        pygame.draw.circle(canvas, color, pos, 5)
+        pygame.draw.circle(canvas, color, pygame.mouse.get_pos(), 5)
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_r]:
-        tool = "rect"
-    if keys[pygame.K_c]:
-        tool = "circle"
-    if keys[pygame.K_d]:
-        tool = "draw"
-    if keys[pygame.K_e]:
-        tool = "eraser"
+    # tool selection
+    if keys[pygame.K_r]: tool = "rect"
+    if keys[pygame.K_c]: tool = "circle"
+    if keys[pygame.K_d]: tool = "draw"
+    if keys[pygame.K_e]: tool = "eraser"
+    if keys[pygame.K_s]: tool = "square"
+    if keys[pygame.K_t]: tool = "right_triangle"
+    if keys[pygame.K_y]: tool = "equilateral_triangle"
+    if keys[pygame.K_h]: tool = "rhombus"
 
-    if keys[pygame.K_s]:
-        tool = "square"
-    if keys[pygame.K_t]:
-        tool = "right_triangle"
-    if keys[pygame.K_y]:
-        tool = "equilateral_triangle"
-    if keys[pygame.K_h]:
-        tool = "rhombus"
+    # color selection
+    if keys[pygame.K_1]: color = BLACK
+    if keys[pygame.K_2]: color = RED
+    if keys[pygame.K_3]: color = GREEN
+    if keys[pygame.K_4]: color = BLUE
 
-    if keys[pygame.K_1]:
-        color = BLACK
-    if keys[pygame.K_2]:
-        color = RED
-    if keys[pygame.K_3]:
-        color = GREEN
-    if keys[pygame.K_4]:
-        color = BLUE
-
+    # eraser
     if tool == "eraser" and drawing:
-        pos = pygame.mouse.get_pos()
-        pygame.draw.circle(canvas, WHITE, pos, 15)
+        pygame.draw.circle(canvas, WHITE, pygame.mouse.get_pos(), 15)
 
-    pygame.display.update()
-    clock.tick(400)
+    pygame.display.update()  # refresh screen
+    clock.tick(400)  # FPS limit
 
-pygame.quit()
+pygame.quit()  # exit pygame
