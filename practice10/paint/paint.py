@@ -9,7 +9,6 @@ clock = pygame.time.Clock()
 canvas = pygame.Surface((w, h))
 canvas.fill((255, 255, 255))
 
-# colors
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
@@ -31,7 +30,6 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        # mouse down
         if event.type == pygame.MOUSEBUTTONDOWN:
             drawing = True
             start_pos = event.pos
@@ -57,20 +55,19 @@ while running:
                 radius = int(((end_pos[0] - start_pos[0])**2 + (end_pos[1] - start_pos[1])**2) ** 0.5)
                 pygame.draw.circle(canvas, color, start_pos, radius, 2)
 
-    # drawing while moving
-    if drawing and tool == "brush":
+    
+    if drawing and tool == "draw":
         pos = pygame.mouse.get_pos()
         pygame.draw.circle(canvas, color, pos, 5)
 
-    # keys for tools and colors
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_r]:
         tool = "rect"
     if keys[pygame.K_c]:
         tool = "circle"
-    if keys[pygame.K_b]:
-        tool = "brush"
+    if keys[pygame.K_d]:
+        tool = "draw"
     if keys[pygame.K_e]:
         tool = "eraser"
 
@@ -83,7 +80,6 @@ while running:
     if keys[pygame.K_4]:
         color = BLUE
 
-    # eraser
     if tool == "eraser" and drawing:
         pos = pygame.mouse.get_pos()
         pygame.draw.circle(canvas, WHITE, pos, 15)
