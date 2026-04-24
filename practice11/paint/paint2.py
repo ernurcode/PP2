@@ -33,8 +33,7 @@ while running:
             drawing = True
             start_pos = event.pos
 
-            if event.button == 1 and tool == "brush":
-                pygame.draw.circle(canvas, color, event.pos, 5)
+            
 
         if event.type == pygame.MOUSEBUTTONUP:
             drawing = False
@@ -45,7 +44,7 @@ while running:
                 y = min(start_pos[1], end_pos[1])
                 w_ = abs(start_pos[0] - end_pos[0])
                 h_ = abs(start_pos[1] - end_pos[1])
-                pygame.draw.rect(canvas, color, (x, y, w_, h_), 2)
+                pygame.draw.rect(canvas, color, (x, y, w_, h_), 4)
 
             if tool == "square":
                size = max(abs(end_pos[0] - start_pos[0]),
@@ -53,25 +52,23 @@ while running:
 
                x = start_pos[0]
                y = start_pos[1]
-
                if end_pos[0] < start_pos[0]:
                    x = start_pos[0] - size
                if end_pos[1] < start_pos[1]:
                    y = start_pos[1] - size
-
-               pygame.draw.rect(canvas, color, (x, y, size, size), 2)
+               pygame.draw.rect(canvas, color, (x, y, size, size), 4)
 
             if tool == "circle":
                 radius = int(((end_pos[0] - start_pos[0])**2 +
                               (end_pos[1] - start_pos[1])**2) ** 0.5)
-                pygame.draw.circle(canvas, color, start_pos, radius, 2)
+                pygame.draw.circle(canvas, color, start_pos, radius, 4)
 
             if tool == "right_triangle":
                 pygame.draw.polygon(canvas, color, [
                     start_pos,
                     (start_pos[0], end_pos[1]),
                     end_pos
-                ], 2)
+                ], 4)
 
             if tool == "equilateral_triangle":
                 x1, y1 = start_pos
@@ -81,7 +78,7 @@ while running:
                     (mid_x, y1),
                     (x1, y2),
                     (x2, y2)
-                ], 2)
+                ], 4)
 
             if tool == "rhombus":
                 x1, y1 = start_pos
@@ -93,7 +90,7 @@ while running:
                     (x2, cy),
                     (cx, y2),
                     (x1, cy)
-                ], 2)
+                ], 4)
 
     if drawing and tool == "draw":
         pos = pygame.mouse.get_pos()
