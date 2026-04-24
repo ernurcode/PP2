@@ -77,7 +77,7 @@ while running:
     else:
         screen.fill((0, 0, 0))
 
-        over_text = pygame.font.SysFont(None, 60).render("GAME OVER", True, (255, 0, 0))
+        over_text = pygame.font.SysFont(None, 60).render("GAME OVER", True, (255, 255, 255))
         score_text = pygame.font.SysFont(None, 40).render(f"Coins: {coins}", True, (255, 255, 255))
 
         screen.blit(over_text, (w//2 - 130, h//2 - 60))
