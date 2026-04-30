@@ -35,6 +35,20 @@
         "date": "2026-04-30 23:40"
     },
     {
+        "name": "Badau",
+        "score": 1104,
+        "distance": 2690,
+        "coins": 23,
+        "date": "2026-05-01 01:35"
+    },
+    {
+        "name": "Badau",
+        "score": 1104,
+        "distance": 2690,
+        "coins": 23,
+        "date": "2026-05-01 01:35"
+    },
+    {
         "name": "dgeg",
         "score": 1097,
         "distance": 2174,
@@ -54,19 +68,5 @@
         "distance": 200,
         "coins": 15,
         "date": "2026-04-30 22:48"
-    },
-    {
-        "name": "Player3",
-        "score": 800,
-        "distance": 150,
-        "coins": 10,
-        "date": "2026-04-30 22:48"
-    },
-    {
-        "name": "Ernur",
-        "score": 775,
-        "distance": 1653,
-        "coins": 18,
-        "date": "2026-04-30 22:51"
     }
 ]
