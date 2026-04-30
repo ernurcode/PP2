@@ -44,6 +44,27 @@ def add_contact():
     conn.commit()
     print("Contact added/updated")
 
+# ---------------- DELETE BY NAME ----------------
+def delete_by_name():
+    name = input("Enter name to delete: ")
+    
+    cur.execute("SELECT id, name, email FROM contacts WHERE name ILIKE %s", (name,))
+    contact = cur.fetchone()
+    
+    if contact:
+        print(f"\nFound: {contact[1]} - {contact[2]}")
+        confirm = input("Delete this contact? (yes/no): ")
+        
+        if confirm.lower() == 'yes':
+            cur.execute("DELETE FROM phones WHERE contact_id = %s", (contact[0],))
+            cur.execute("DELETE FROM contacts WHERE id = %s", (contact[0],))
+            conn.commit()
+            print(f"Contact '{contact[1]}' deleted!")
+        else:
+            print("Deletion cancelled")
+    else:
+        print(f"Contact '{name}' not found!")
+
 # ---------------- ADD PHONE  ----------------
 def add_phone():
     name = input("Contact name: ")
@@ -243,6 +264,7 @@ def menu():
 8. Import JSON
 9. Add phone
 10. Import CSV
+11. Delete by name
 0. Exit
         """)
 
@@ -264,12 +286,14 @@ def menu():
             export_json()
         elif choice == "8":
             import_json()
-        elif choice == "0":
-            break
         elif choice == "9":
             add_phone()
         elif choice == "10":
             import_csv()
+        elif choice == "11":
+            delete_by_name()
+        elif choice == "0":
+            break
 
 
 menu()
