@@ -1,0 +1,58 @@
+[
+    {
+        "id": 32,
+        "name": "Ernur",
+        "email": "87782645966",
+        "birthday": "None",
+        "group_id": "None"
+    },
+    {
+        "id": 33,
+        "name": "Temirlan",
+        "email": "87075124654",
+        "birthday": "None",
+        "group_id": "None"
+    },
+    {
+        "id": 36,
+        "name": "Ivan",
+        "email": "87024875147",
+        "birthday": "None",
+        "group_id": "None"
+    },
+    {
+        "id": 41,
+        "name": "Damir",
+        "email": null,
+        "birthday": "damirchik@gmail.com",
+        "group_id": "2000-01-01"
+    },
+    {
+        "id": 42,
+        "name": "Rasul",
+        "email": null,
+        "birthday": "ra@kbtu.kz",
+        "group_id": "2000-05-02"
+    },
+    {
+        "id": 43,
+        "name": "Ali",
+        "email": null,
+        "birthday": "ali@gmail.com",
+        "group_id": "2005-01-10"
+    },
+    {
+        "id": 44,
+        "name": "Dana",
+        "email": null,
+        "birthday": "dana@work.com",
+        "group_id": "2004-05-12"
+    },
+    {
+        "id": 45,
+        "name": "Arman",
+        "email": null,
+        "birthday": "arman@mail.com",
+        "group_id": "2003-09-20"
+    }
+]

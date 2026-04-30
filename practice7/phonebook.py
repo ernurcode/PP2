@@ -5,7 +5,7 @@ def create_table():
     conn = connect()
     cur = conn.cursor()
     cur.execute("""
-        CREATE TABLE IF NOT EXISTS phonebook (
+        CREATE TABLE IF NOT EXISTS contacts (
             id SERIAL PRIMARY KEY,
             name VARCHAR(100),
             phone VARCHAR(20)
@@ -24,7 +24,7 @@ def insert_from_csv(file):
         reader = csv.reader(f)
         for name, phone in reader:
             cur.execute(
-                "INSERT INTO phonebook (name, phone) VALUES (%s, %s)",
+                "INSERT INTO contacts (name, phone) VALUES (%s, %s)",
                 (name, phone)
             )
 
@@ -50,7 +50,7 @@ def insert_from_console():
     data = list(zip(names, phones))
 
     cur.executemany(
-        "INSERT INTO phonebook (name, phone) VALUES (%s, %s)",
+        "INSERT INTO contacts (name, phone) VALUES (%s, %s)",
         data
     )
 
@@ -65,12 +65,12 @@ def update_contact(old_name, new_name=None, new_phone=None):
 
     if new_name:
         cur.execute(
-            "UPDATE phonebook SET name=%s WHERE name=%s",
+            "UPDATE contacts SET name=%s WHERE name=%s",
             (new_name, old_name)
         )
     if new_phone:
         cur.execute(
-            "UPDATE phonebook SET phone=%s WHERE name=%s",
+            "UPDATE contacts SET phone=%s WHERE name=%s",
             (new_phone, old_name)
         )
 
@@ -83,7 +83,7 @@ def query_all():
     conn = connect()
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM phonebook")
+    cur.execute("SELECT * FROM contacts")
     for row in cur.fetchall():
         print(row)
 
@@ -95,7 +95,7 @@ def query_by_name(name):
     conn = connect()
     cur = conn.cursor()
 
-    cur.execute("SELECT * FROM phonebook WHERE name=%s", (name,))
+    cur.execute("SELECT * FROM contacts WHERE name=%s", (name,))
     print(cur.fetchall())
 
     cur.close()
@@ -107,7 +107,7 @@ def query_by_phone_prefix(prefix):
     cur = conn.cursor()
 
     cur.execute(
-        "SELECT * FROM phonebook WHERE phone LIKE %s",
+        "SELECT * FROM contacts WHERE phone LIKE %s",
         (prefix + "%",)
     )
     print(cur.fetchall())
@@ -120,7 +120,7 @@ def delete_by_name(name):
     conn = connect()
     cur = conn.cursor()
 
-    cur.execute("DELETE FROM phonebook WHERE name=%s", (name,))
+    cur.execute("DELETE FROM contacts WHERE name=%s", (name,))
 
     conn.commit()
     cur.close()
@@ -131,7 +131,7 @@ def delete_by_phone(phone):
     conn = connect()
     cur = conn.cursor()
 
-    cur.execute("DELETE FROM phonebook WHERE phone=%s", (phone,))
+    cur.execute("DELETE FROM contacts WHERE phone=%s", (phone,))
 
     conn.commit()
     cur.close()

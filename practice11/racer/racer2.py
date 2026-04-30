@@ -27,13 +27,13 @@ player_speed = 6
 
 # enemy setup
 enemy_rect = enemy_img.get_rect(center=(random.randint(40, w - 100), -100))
-enemy_speed = 10
+enemy_speed = 5
 
 lvl = 1
 
 # coin setup
 coin_rect = coin_img2.get_rect(center=(170, -60))
-coin_speed = 8
+coin_speed = 5
 
 y = 0  # background scroll
 coins = 0
@@ -54,7 +54,7 @@ while running:
         # background animation
         screen.blit(bg, (0, y - 600))
         screen.blit(bg, (0, y))
-        y = (y + 8) % 600
+        y = (y + 5) % 600
 
         # player movement
         keys = pygame.key.get_pressed()
@@ -86,7 +86,7 @@ while running:
             coins += 1
 
             if coins % 3 == 0:
-                enemy_speed += 2  # increase difficulty
+                enemy_speed += 1  # increase difficulty
 
             coin_rect.y = -50
             coin_rect.x = random.randint(40, w - 60)
